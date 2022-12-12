@@ -10,11 +10,15 @@ function onImgClick(event) {
   if (event.target.nodeName !== "IMG") {
     return;
   }
-  window.addEventListener("keydown", (event) => {
+  window.addEventListener("keydown", onEscPress);
+
+  function onEscPress(event) {
     if (event.code === "Escape") {
       instance.close();
+      window.removeEventListener("keydown", onEscPress);
     }
-  });
+  }
+
   event.preventDefault();
   const url = event.target.dataset.source;
   const instance = basicLightbox.create(`<img src="${url}">`);
